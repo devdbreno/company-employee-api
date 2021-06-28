@@ -3,13 +3,15 @@
   "version": "0.0.1",
   "description": "Employee management REST API",
   "scripts": {
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "author": "devdbreno <dbrenoti@gmail.com>",
   "license": "MIT",
   "repository": "https://github.com/devdbreno/employee-management-api.git",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^27.0.4"
+  },
   "engines": {
     "npm": ">=7.18.0",
     "node": ">=14.17.1"
