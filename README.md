@@ -1,2 +1,1 @@
-# employee-management-api
-Employee Management API
+# Company/Employee management Restful API
