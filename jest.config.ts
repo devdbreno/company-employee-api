@@ -7,6 +7,7 @@ export default {
   testEnvironment: 'node',
   moduleNameMapper: {
     '@test/(.*)$': '<rootDir>/test/$1',
+    '@shared/(.*)$': '<rootDir>/src/shared/$1',
     '@domain/(.*)$': '<rootDir>/src/domain/$1'
   },
   moduleFileExtensions: ['ts', 'js'],
