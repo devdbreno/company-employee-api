@@ -12,7 +12,6 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'js'],
   clearMocks: true,
-  collectCoverage: true,
   coverageProvider: 'v8',
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov', 'json-summary'],
