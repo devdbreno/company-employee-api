@@ -10,6 +10,9 @@
   "author": "devdbreno <dbrenoti@gmail.com>",
   "license": "MIT",
   "repository": "https://github.com/devdbreno/employee-management-api.git",
+  "dependencies": {
+    "cpf-cnpj-email-validator": "^1.4.2"
+  },
   "devDependencies": {
     "coveralls": "^3.1.1",
     "jest": "^27.0.6",
