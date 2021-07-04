@@ -1,6 +1,6 @@
 import { Either } from '@shared/core/either'
 
-describe('Either Util', () => {
+describe('Either [Util]', () => {
   const left = Either.left('i am left')
   const right = Either.right('i am right')
 
