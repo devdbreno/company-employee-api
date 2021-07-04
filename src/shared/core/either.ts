@@ -2,11 +2,20 @@ const type = Symbol()
 
 export type Either<L, A> = Left<L, A> | Right<L, A>
 
-type Left<L, _> = { readonly val: L; readonly [type]: 'left' }
-type Right<_, A> = { readonly val: A; readonly [type]: 'right' }
+type Left<L, _> = {
+  readonly value: L
+  readonly [type]: 'left'
+}
 
-export const mkLeft = <L, A>(l: L): Either<L, A> => ({ [type]: 'left', val: l })
-export const mkRight = <L, R>(r: R): Either<L, R> => ({ [type]: 'right', val: r })
+type Right<_, A> = {
+  readonly value: A
+  readonly [type]: 'right'
+}
 
-export const isLeft = <L, A>(val: Either<L, A>): val is Left<L, A> => val[type] === 'left'
-export const isRight = <L, A>(val: Either<L, A>): val is Right<L, A> => val[type] === 'right'
+const left = <L, A>(l: L): Either<L, A> => ({ [type]: 'left', value: l })
+const right = <L, R>(r: R): Either<L, R> => ({ [type]: 'right', value: r })
+
+const isLeft = <L, A>(value: Either<L, A>): value is Left<L, A> => value[type] === 'left'
+const isRight = <L, A>(value: Either<L, A>): value is Right<L, A> => value[type] === 'right'
+
+export const Either = { left, isLeft, right, isRight }
