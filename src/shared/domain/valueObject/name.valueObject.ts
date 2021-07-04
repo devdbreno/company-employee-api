@@ -14,7 +14,7 @@ const create = (name: string): Either<InvalidNameError, string> => {
 const isValid = (name: string): Either<InvalidNameError, boolean> => {
   const trimmedName = name.trim()
 
-  if (trimmedName.length < 2 || trimmedName.length > 10) {
+  if (trimmedName.length < 2 || trimmedName.length > 21) {
     const fewCharsError = new InvalidNameError(fewOrManyCharsMsg(name))
     return Either.left(fewCharsError)
   }
