@@ -1,22 +1,22 @@
-import { mkRight, mkLeft, isRight, isLeft } from '@shared/core/either'
+import { Either } from '@shared/core/either'
 
-describe('Either', () => {
-  const left = mkLeft('i am left')
-  const right = mkRight('i am right')
+describe('Either Util', () => {
+  const left = Either.left('i am left')
+  const right = Either.right('i am right')
 
   it('Left is left', () => {
-    expect(isLeft(left)).toBe(true)
+    expect(Either.isLeft(left)).toBe(true)
   })
 
   it('Left is not right', () => {
-    expect(isRight(left)).toBe(false)
+    expect(Either.isRight(left)).toBe(false)
   })
 
   it('Right is right', () => {
-    expect(isRight(right)).toBe(true)
+    expect(Either.isRight(right)).toBe(true)
   })
 
   it('Right is not left', () => {
-    expect(isLeft(right)).toBe(false)
+    expect(Either.isLeft(right)).toBe(false)
   })
 })
