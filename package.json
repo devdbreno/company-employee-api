@@ -12,12 +12,13 @@
   "license": "MIT",
   "repository": "https://github.com/devdbreno/employee-management-api.git",
   "dependencies": {
-    "cpf-cnpj-email-validator": "^1.4.2",
-    "module-alias": "^2.2.2"
+    "module-alias": "^2.2.2",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@types/module-alias": "^2.0.0",
+    "@types/validator": "^13.6.2",
     "coveralls": "^3.1.1",
     "jest": "^27.0.6",
     "ts-jest": "^27.0.3",
