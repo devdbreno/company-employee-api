@@ -12,10 +12,8 @@ type Right<_, A> = {
   readonly [type]: 'right'
 }
 
-const left = <L, A>(l: L): Either<L, A> => ({ [type]: 'left', value: l })
-const right = <L, R>(r: R): Either<L, R> => ({ [type]: 'right', value: r })
+export const left = <L, A>(l: L): Either<L, A> => ({ [type]: 'left', value: l })
+export const right = <L, R>(r: R): Either<L, R> => ({ [type]: 'right', value: r })
 
-const isLeft = <L, A>(value: Either<L, A>): value is Left<L, A> => value[type] === 'left'
-const isRight = <L, A>(value: Either<L, A>): value is Right<L, A> => value[type] === 'right'
-
-export const Either = { left, isLeft, right, isRight }
+export const isLeft = <L, A>(value: Either<L, A>): value is Left<L, A> => value[type] === 'left'
+export const isRight = <L, A>(value: Either<L, A>): value is Right<L, A> => value[type] === 'right'
