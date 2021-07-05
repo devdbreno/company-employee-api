@@ -1,1 +1,1 @@
-export * from './invalidName.error'
+export * from './name.error'
