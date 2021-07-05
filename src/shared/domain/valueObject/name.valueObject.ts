@@ -1,25 +1,19 @@
-import { Either } from '@shared/core'
+import { left, right, isLeft, Either } from '@shared/core'
 
-import { InvalidNameError } from '@shared/domain/errors'
-import { fewOrManyCharsMsg } from '@shared/domain/helpers'
+import { NameErrors, NameLengthError } from '@shared/domain/errors'
 
-const create = (name: string): Either<InvalidNameError, string> => {
-  const trueOrInvalidNameError = isValid(name)
+export const createName = (name: string): Either<NameErrors, string> => {
+  const trueOrNameError = isValidName(name)
 
-  if (Either.isLeft(trueOrInvalidNameError)) return trueOrInvalidNameError
+  if (isLeft(trueOrNameError)) return trueOrNameError
 
-  return Either.right(name)
+  return right(name)
 }
 
-const isValid = (name: string): Either<InvalidNameError, boolean> => {
+const isValidName = (name: string): Either<NameErrors, boolean> => {
   const trimmedName = name.trim()
 
-  if (trimmedName.length < 2 || trimmedName.length > 21) {
-    const fewCharsError = new InvalidNameError(fewOrManyCharsMsg(name))
-    return Either.left(fewCharsError)
-  }
+  if (trimmedName.length < 2 || trimmedName.length > 21) return left(new NameLengthError(name))
 
-  return Either.right(true)
+  return right(true)
 }
-
-export const Name = { create, isValid }
