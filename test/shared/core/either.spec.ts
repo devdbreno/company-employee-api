@@ -1,6 +1,6 @@
 import { isLeft, isRight, left, right } from '@shared/core/either'
 
-describe('Either [Util]', () => {
+describe('Either [shared/core]', () => {
   it('Left is left', () => {
     expect(isLeft(left('i am left'))).toBe(true)
   })
