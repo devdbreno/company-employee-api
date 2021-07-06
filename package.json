@@ -18,7 +18,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@types/module-alias": "^2.0.0",
-    "@types/validator": "^13.6.2",
+    "@types/validator": "^13.6.3",
     "coveralls": "^3.1.1",
     "jest": "^27.0.6",
     "ts-jest": "^27.0.3",
