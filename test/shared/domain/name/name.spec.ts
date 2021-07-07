@@ -1,8 +1,10 @@
 import { left, right } from '@shared/either'
 import { nameValidatorAdapter } from '@shared/infra/validators/name.validator'
 
+import { formatName } from '@shared/utils/text.util'
+
+import { createName } from '@shared/domain/name/name.vo'
 import { InvalidNameError } from '@shared/domain/name/name.error'
-import { createName, formatName } from '@shared/domain/name/name.vo'
 
 const giveNameOrError = (name: string) => createName(name, nameValidatorAdapter)
 
