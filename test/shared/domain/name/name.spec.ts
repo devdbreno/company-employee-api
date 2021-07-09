@@ -1,76 +1,78 @@
-import { left, right } from '@shared/either'
+import { isLeft, isRight, left } from '@shared/either'
 import { InvalidNameError } from '@shared/domain/name/name.error'
 
 import { validFullnames, validSimpleNames, giveNameOrError } from '@test/shared/domain/name/name.mock'
 
 describe('Name (shared/domain)', () => {
+  /* Happy Path */
+
   it('Should create a multiple valid simple names', () => {
     const namesOrErrors = validSimpleNames.map((validName) => giveNameOrError(validName))
-    const expecNamesOrErrors = validSimpleNames.map((validName) => right(validName))
+    const namesOrErrorsValues = namesOrErrors.map(({ value }) => value)
 
-    const namesValues = namesOrErrors.map(({ value }) => value)
-    const expecNamesValues = expecNamesOrErrors.map(({ value }) => value)
+    const allResultsAreRight = namesOrErrors.every((lr) => isRight(lr))
 
-    expect(namesOrErrors).toEqual(expecNamesOrErrors)
-    expect(namesValues).toEqual(expecNamesValues)
+    expect(allResultsAreRight).toBe(true)
+    expect(namesOrErrorsValues).toStrictEqual(validSimpleNames)
   })
 
   it('Should create a multiple valid fullnames', () => {
     const namesOrErrors = validFullnames.map((validName) => giveNameOrError(validName))
-    const expecNamesOrErrors = validFullnames.map((validName) => right(validName))
+    const namesOrErrorsValues = namesOrErrors.map(({ value }) => value)
 
-    const namesValues = namesOrErrors.map(({ value }) => value)
-    const expecNamesValues = expecNamesOrErrors.map(({ value }) => value)
+    const allResultsAreRight = namesOrErrors.every((lr) => isRight(lr))
 
-    expect(namesOrErrors).toEqual(expecNamesOrErrors)
-    expect(namesValues).toEqual(expecNamesValues)
+    expect(allResultsAreRight).toBe(true)
+    expect(namesOrErrorsValues).toStrictEqual(validFullnames)
   })
+
+  /* Unhappy Path */
 
   it('Should not create an invalid name with few characters', () => {
     const invalidName = 'D'
 
     const nameOrError = giveNameOrError(invalidName)
-    const expectedNameValue = invalidName
+    const resultIsLeft = isLeft(nameOrError)
 
-    const invalidNameError = new InvalidNameError(expectedNameValue)
+    const invalidNameError = new InvalidNameError(invalidName)
 
-    expect(nameOrError).toEqual(left(invalidNameError))
-    expect(nameOrError.value).toEqual(invalidNameError)
+    expect(resultIsLeft).toBe(true)
+    expect(nameOrError.value).toStrictEqual(invalidNameError)
   })
 
   it('Should not create an invalid name with many characters', () => {
     const invalidName = 'pedro de alcântara francisco antônio joão carlos xavier de paula'
 
     const nameOrError = giveNameOrError(invalidName)
-    const expectedNameValue = invalidName
+    const resultIsLeft = isLeft(nameOrError)
 
-    const invalidNameError = new InvalidNameError(expectedNameValue)
+    const invalidNameError = new InvalidNameError(invalidName)
 
-    expect(nameOrError).toEqual(left(invalidNameError))
-    expect(nameOrError.value).toEqual(invalidNameError)
+    expect(resultIsLeft).toBe(true)
+    expect(nameOrError.value).toStrictEqual(invalidNameError)
   })
 
   it('Should not create an invalid name with invalid symbols and/or numbers', () => {
     const invalidName = 'deivi@d1_23'
 
     const nameOrError = giveNameOrError(invalidName)
-    const expectedNameValue = invalidName
+    const resultIsLeft = isLeft(nameOrError)
 
-    const invalidNameError = new InvalidNameError(expectedNameValue)
+    const invalidNameError = new InvalidNameError(invalidName)
 
-    expect(nameOrError).toEqual(left(invalidNameError))
-    expect(nameOrError.value).toEqual(invalidNameError)
+    expect(resultIsLeft).toBe(true)
+    expect(nameOrError.value).toStrictEqual(invalidNameError)
   })
 
   it('Should not create an invalid name with symbols and/or numbers', () => {
     const invalidName = 'PppppppppPPPPPpppppppPPPppp'
 
     const nameOrError = giveNameOrError(invalidName)
-    const expectedNameValue = invalidName
+    const resultIsLeft = isLeft(nameOrError)
 
-    const invalidNameError = new InvalidNameError(expectedNameValue)
+    const invalidNameError = new InvalidNameError(invalidName)
 
-    expect(nameOrError).toEqual(left(invalidNameError))
-    expect(nameOrError.value).toEqual(invalidNameError)
+    expect(resultIsLeft).toBe(true)
+    expect(nameOrError.value).toStrictEqual(invalidNameError)
   })
 })
