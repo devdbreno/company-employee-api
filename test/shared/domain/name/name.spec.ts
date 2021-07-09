@@ -1,30 +1,32 @@
-import { left, right } from '@shared/either'
+import { isRight, left } from '@shared/either'
 import { InvalidNameError } from '@shared/domain/name/name.error'
 
 import { validFullnames, validSimpleNames, giveNameOrError } from '@test/shared/domain/name/name.mock'
 
 describe('Name (shared/domain)', () => {
+  /* Happy Path */
+
   it('Should create a multiple valid simple names', () => {
     const namesOrErrors = validSimpleNames.map((validName) => giveNameOrError(validName))
-    const expecNamesOrErrors = validSimpleNames.map((validName) => right(validName))
+    const namesOrErrorsValues = namesOrErrors.map(({ value }) => value)
 
-    const namesValues = namesOrErrors.map(({ value }) => value)
-    const expecNamesValues = expecNamesOrErrors.map(({ value }) => value)
+    const allResultsAreRight = namesOrErrors.every((lr) => isRight(lr))
 
-    expect(namesOrErrors).toEqual(expecNamesOrErrors)
-    expect(namesValues).toEqual(expecNamesValues)
+    expect(allResultsAreRight).toBe(true)
+    expect(namesOrErrorsValues).toStrictEqual(validSimpleNames)
   })
 
   it('Should create a multiple valid fullnames', () => {
     const namesOrErrors = validFullnames.map((validName) => giveNameOrError(validName))
-    const expecNamesOrErrors = validFullnames.map((validName) => right(validName))
+    const namesOrErrorsValues = namesOrErrors.map(({ value }) => value)
 
-    const namesValues = namesOrErrors.map(({ value }) => value)
-    const expecNamesValues = expecNamesOrErrors.map(({ value }) => value)
+    const allResultsAreRight = namesOrErrors.every((lr) => isRight(lr))
 
-    expect(namesOrErrors).toEqual(expecNamesOrErrors)
-    expect(namesValues).toEqual(expecNamesValues)
+    expect(allResultsAreRight).toBe(true)
+    expect(namesOrErrorsValues).toStrictEqual(validFullnames)
   })
+
+  /* Unhappy Path */
 
   it('Should not create an invalid name with few characters', () => {
     const invalidName = 'D'
