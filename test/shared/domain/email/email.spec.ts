@@ -1,10 +1,7 @@
 import { left, right } from '@shared/either'
-import { emailValidatorAdapter } from '@shared/infra/validators/email.validator'
-
-import { createEmail } from '@shared/domain/email/email.vo'
 import { InvalidEmailError } from '@shared/domain/email/email.error'
 
-const giveEmailOrError = (email: string) => createEmail(email, emailValidatorAdapter)
+import { giveEmailOrError } from '@test/shared/domain/email/email.mock'
 
 describe('Email (shared/domain)', () => {
   it('Should create a valid email', () => {

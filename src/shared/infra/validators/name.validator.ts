@@ -1,10 +1,14 @@
-import isAplha from 'validator/lib/isAlpha'
 import { NameValidator } from '@shared/domain/name/name.port'
 
-export const nameValidatorAdapter: NameValidator = {
-  validate(name: string) {
-    const trimmedName = name.replace(/\s+/g, '')
+const validNameRegex =
+  /^(?:((([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]'’,\-.\s])){1,}(['’,\-\.]){0,1}){2,}(([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]'’,\-. ]))*(([ ]+){0,1}(((([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]'’,\-\.\s])){1,})(['’\-,\.]){0,1}){2,}((([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]'’,\-\.\s])){2,})?)*)$/
+const equalsLettersRegex = /^(.)\1+$/
 
-    return trimmedName.length >= 3 && trimmedName.length <= 50 && isAplha(trimmedName, 'pt-BR')
-  }
+export const nameValidator: NameValidator = (name: string) => {
+  const trimmedName = name.trim().toLowerCase()
+
+  const isValidName = validNameRegex.test(trimmedName) && !equalsLettersRegex.test(trimmedName)
+  const isRightLength = trimmedName.length >= 3 && trimmedName.length <= 50
+
+  return isRightLength && isValidName
 }

@@ -1,9 +1,11 @@
 import { join, resolve } from 'path'
 import { addAliases } from 'module-alias'
 
-export const src = resolve(__dirname, '../..')
+export const src = resolve(__dirname, '..')
+
+console.log(src)
 
 addAliases({
-  '@shared': join(`${src}/shared`),
-  '@modules': join(`${src}/modules`)
+  '@domain': join(`${src}/domain`),
+  '@shared': join(`${src}/shared`)
 })

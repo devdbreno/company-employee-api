@@ -1,57 +1,74 @@
 import { left, right } from '@shared/either'
-import { nameValidatorAdapter } from '@shared/infra/validators/name.validator'
-
-import { formatName } from '@shared/utils/text.util'
-
-import { createName } from '@shared/domain/name/name.vo'
 import { InvalidNameError } from '@shared/domain/name/name.error'
 
-const giveNameOrError = (name: string) => createName(name, nameValidatorAdapter)
+import { validFullnames, validSimpleNames, giveNameOrError } from '@test/shared/domain/name/name.mock'
 
 describe('Name (shared/domain)', () => {
-  it('Should create a valid simple name', () => {
-    const validName = formatName('linus')
+  it('Should create a multiple valid simple names', () => {
+    const namesOrErrors = validSimpleNames.map((validName) => giveNameOrError(validName))
+    const expecNamesOrErrors = validSimpleNames.map((validName) => right(validName))
 
-    const nameOrError = giveNameOrError(validName)
+    const namesValues = namesOrErrors.map(({ value }) => value)
+    const expecNamesValues = expecNamesOrErrors.map(({ value }) => value)
 
-    expect(nameOrError).toEqual(right(validName))
-    expect(nameOrError.value).toEqual(validName)
+    expect(namesOrErrors).toEqual(expecNamesOrErrors)
+    expect(namesValues).toEqual(expecNamesValues)
   })
 
-  it('Should create a valid fullname', () => {
-    const validName = formatName('deivid breno novaes de araújo silva')
+  it('Should create a multiple valid fullnames', () => {
+    const namesOrErrors = validFullnames.map((validName) => giveNameOrError(validName))
+    const expecNamesOrErrors = validFullnames.map((validName) => right(validName))
 
-    const nameOrError = giveNameOrError(validName)
+    const namesValues = namesOrErrors.map(({ value }) => value)
+    const expecNamesValues = expecNamesOrErrors.map(({ value }) => value)
 
-    expect(nameOrError).toEqual(right(validName))
-    expect(nameOrError.value).toEqual(validName)
+    expect(namesOrErrors).toEqual(expecNamesOrErrors)
+    expect(namesValues).toEqual(expecNamesValues)
   })
 
   it('Should not create an invalid name with few characters', () => {
-    const invalidName = formatName('D')
+    const invalidName = 'D'
 
     const nameOrError = giveNameOrError(invalidName)
-    const nameLengthError = new InvalidNameError(invalidName)
+    const expectedNameValue = invalidName
 
-    expect(nameOrError).toEqual(left(nameLengthError))
-    expect(nameOrError.value).toEqual(nameLengthError)
+    const invalidNameError = new InvalidNameError(expectedNameValue)
+
+    expect(nameOrError).toEqual(left(invalidNameError))
+    expect(nameOrError.value).toEqual(invalidNameError)
   })
 
   it('Should not create an invalid name with many characters', () => {
-    const invalidName = formatName('pedro de alcântara francisco antônio joão carlos xavier de paula')
+    const invalidName = 'pedro de alcântara francisco antônio joão carlos xavier de paula'
 
     const nameOrError = giveNameOrError(invalidName)
-    const invalidNameError = new InvalidNameError(invalidName)
+    const expectedNameValue = invalidName
+
+    const invalidNameError = new InvalidNameError(expectedNameValue)
+
+    expect(nameOrError).toEqual(left(invalidNameError))
+    expect(nameOrError.value).toEqual(invalidNameError)
+  })
+
+  it('Should not create an invalid name with invalid symbols and/or numbers', () => {
+    const invalidName = 'deivi@d1_23'
+
+    const nameOrError = giveNameOrError(invalidName)
+    const expectedNameValue = invalidName
+
+    const invalidNameError = new InvalidNameError(expectedNameValue)
 
     expect(nameOrError).toEqual(left(invalidNameError))
     expect(nameOrError.value).toEqual(invalidNameError)
   })
 
   it('Should not create an invalid name with symbols and/or numbers', () => {
-    const invalidName = 'Deivi@d1_23'
+    const invalidName = 'PppppppppPPPPPpppppppPPPppp'
 
     const nameOrError = giveNameOrError(invalidName)
-    const invalidNameError = new InvalidNameError(invalidName)
+    const expectedNameValue = invalidName
+
+    const invalidNameError = new InvalidNameError(expectedNameValue)
 
     expect(nameOrError).toEqual(left(invalidNameError))
     expect(nameOrError.value).toEqual(invalidNameError)

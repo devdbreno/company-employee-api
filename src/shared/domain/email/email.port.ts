@@ -1,3 +1,5 @@
-export interface EmailValidator {
-  validate(email: string): boolean
+export type EmailValidator = (email: string) => boolean
+
+export interface EmailAdapters {
+  validator: EmailValidator
 }
