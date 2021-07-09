@@ -1,4 +1,4 @@
-import { isLeft, isRight, left } from '@shared/either'
+import { isLeft, isRight } from '@shared/either'
 import { InvalidNameError } from '@shared/domain/name/name.error'
 
 import { validFullnames, validSimpleNames, giveNameOrError } from '@test/shared/domain/name/name.mock'
