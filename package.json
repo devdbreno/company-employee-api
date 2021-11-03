@@ -18,7 +18,7 @@
   "repository": "https://github.com/devdbreno/employee-management-api.git",
   "dependencies": {
     "module-alias": "^2.2.2",
-    "validator": "^13.6.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",
